@@ -1,0 +1,6 @@
+1100034,Joaquin,Apple,monkey_01,EMPLOYEE
+1100035,Isabella,Grapefruit,myPassword,EMPLOYEE
+1100047,Enrik,Tangerine,********,EMPLOYEE
+1100052,Sara,Apricot,IDontRemember,MANAGER
+1100078,Noah,Guava,ILikePonies,EMPLOYEE
+1100120,Ava,Papaya,YourPassword,EMPLOYEE
