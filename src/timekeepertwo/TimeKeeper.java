@@ -92,20 +92,20 @@ public class TimeKeeper {
   };
     
   public static void main(String[] args) {
+      goToLogin();
+  }
+  
+  static void goToLogin() {
+    user = null;
       ResourceBundle logInBundle = ResourceBundle.getBundle(
               "timekeepertwo.LogInText",
               Locale.ENGLISH);
-      latch = true;
       TimeKeeperUI logInUI = UIFactory.makeLogInUI(UIType.GUI, 
               logInBundle, 
               (username,password)->attemptLogin (username, password), 
               ()->{}, 
               ()->{latch = false;});
-      //while(logInUI.isRunning()) {
-          //System.out.print("");
-      //}
-      System.out.println("ran");
-  }
+    }
   
   /**
    * Log into a user into the application
