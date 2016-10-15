@@ -18,6 +18,7 @@ import timekeeper.ui.TimeKeeperUI;
 import timekeeper.ui.UIFactory;
 import timekeeper.ui.UIType;
 import java.util.ResourceBundle;
+import timekeeper.ui.NextStepHandler;
 
 /**
  *
@@ -85,6 +86,10 @@ public class TimeKeeper {
   */
   static boolean latch;
   static Person user;
+  //TODO: add options to main menu
+  static final NextStepHandler[] menuOptions = {
+      ()->{}
+  };
     
   public static void main(String[] args) {
       ResourceBundle logInBundle = ResourceBundle.getBundle(
@@ -93,7 +98,7 @@ public class TimeKeeper {
       latch = true;
       TimeKeeperUI logInUI = UIFactory.makeLogInUI(UIType.GUI, 
               logInBundle, 
-              (username,password)->checkLogin (username, password), 
+              (username,password)->attemptLogin (username, password), 
               ()->{}, 
               ()->{latch = false;});
       //while(logInUI.isRunning()) {
@@ -102,19 +107,30 @@ public class TimeKeeper {
       System.out.println("ran");
   }
   
-  public static boolean checkLogin (String username, String password) {
+  /**
+   * Log into a user into the application
+   * @param username The ID number of the user
+   * @param password The password of the user
+   * @return Whether or not the login was successful
+   */
+  static boolean attemptLogin (String username, String password) {
       boolean wasPersonFound = false;
       Person foundPerson;
       try {
-        //TODO: PersonProjectAccess.getPerson(username, password) currently
-        //retrieves user information by ID, not username!
         foundPerson = PersonProjectAccess.getPerson(username, password);
         if(null != foundPerson) {
             user = foundPerson;
+            wasPersonFound = true;
         }
       } catch (FileNotFoundException e) {
           //TODO: create view to display file not found exception
       }
       return wasPersonFound;
   }
+  
+  static void toMainMenu() {
+      //TODO: Add code to method
+  }
+  
+  
 }
