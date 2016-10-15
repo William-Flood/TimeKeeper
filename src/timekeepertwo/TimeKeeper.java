@@ -84,6 +84,7 @@ public class TimeKeeper {
   }
   */
   static boolean latch;
+  static Person user;
     
   public static void main(String[] args) {
       ResourceBundle logInBundle = ResourceBundle.getBundle(
@@ -92,12 +93,28 @@ public class TimeKeeper {
       latch = true;
       TimeKeeperUI logInUI = UIFactory.makeLogInUI(UIType.GUI, 
               logInBundle, 
-              (a,b)->true, 
+              (username,password)->checkLogin (username, password), 
               ()->{}, 
               ()->{latch = false;});
       //while(logInUI.isRunning()) {
           //System.out.print("");
       //}
       System.out.println("ran");
+  }
+  
+  public static boolean checkLogin (String username, String password) {
+      boolean wasPersonFound = false;
+      Person foundPerson;
+      try {
+        //TODO: PersonProjectAccess.getPerson(username, password) currently
+        //retrieves user information by ID, not username!
+        foundPerson = PersonProjectAccess.getPerson(username, password);
+        if(null != foundPerson) {
+            user = foundPerson;
+        }
+      } catch (FileNotFoundException e) {
+          //TODO: create view to display file not found exception
+      }
+      return wasPersonFound;
   }
 }
