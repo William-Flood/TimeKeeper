@@ -12,9 +12,10 @@ package timekeeper.ui;
 public class MenuOption {
     
     /**
-     * The label in a resource bundle to access the text to put on a button
+     * The label in a resource bundle to access the text to associate
+     * with the option
      */
-    private String buttonTextOption;
+    private String optionTextLabel;
     
     /**
      * The function to call when the button is pressed
@@ -22,17 +23,17 @@ public class MenuOption {
     private NextStepHandler methodCall;
 
     /**
-     * @return the buttonTextOption
+     * @return the optionTextLabel
      */
-    public String getButtonTextOption() {
-        return buttonTextOption;
+    public String getOptionTextLabel() {
+        return optionTextLabel;
     }
 
     /**
-     * @param buttonTextOption the buttonTextOption to set
+     * @param optionTextLabel the optionTextLabel to set
      */
-    public void setButtonTextOption(String buttonTextOption) {
-        this.buttonTextOption = buttonTextOption;
+    public void setOptionTextLabel(String optionTextLabel) {
+        this.optionTextLabel = optionTextLabel;
     }
 
     /**
@@ -51,12 +52,12 @@ public class MenuOption {
 
     /**
      * 
-     * @param buttonTextOption The label in a resource bundle 
-     * to access the text to put on a button
-     * @param methodCall The function to call when the button is pressed
+     * @param optionTextLabel The label in a resource bundle 
+     * to access the text to text to associate with the option
+     * @param methodCall The function to call when the option is selected
      */
-    public MenuOption(String buttonTextOption, NextStepHandler methodCall) {
-        this.buttonTextOption = buttonTextOption;
+    public MenuOption(String optionTextLabel, NextStepHandler methodCall) {
+        this.optionTextLabel = optionTextLabel;
         this.methodCall = methodCall;
     }
     

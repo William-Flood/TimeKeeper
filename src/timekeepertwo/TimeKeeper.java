@@ -18,6 +18,7 @@ import timekeeper.ui.TimeKeeperUI;
 import timekeeper.ui.UIFactory;
 import timekeeper.ui.UIType;
 import java.util.ResourceBundle;
+import timekeeper.ui.MenuOption;
 import timekeeper.ui.NextStepHandler;
 
 /**
@@ -86,9 +87,9 @@ public class TimeKeeper {
   */
   static boolean latch;
   static Person user;
-  //TODO: add options to main menu
-  static final NextStepHandler[] menuOptions = {
-      ()->{}
+  //TODO: add project signin option to main menu
+  static final MenuOption[] menuOptions = {
+      new MenuOption("logOut",()->goToLogin())
   };
     
   public static void main(String[] args) {
@@ -104,7 +105,8 @@ public class TimeKeeper {
               logInBundle, 
               (username,password)->attemptLogin (username, password), 
               ()->{}, 
-              ()->{latch = false;});
+              ()->toMainMenu());
+      logInUI.display();
     }
   
   /**
@@ -129,7 +131,14 @@ public class TimeKeeper {
   }
   
   static void toMainMenu() {
-      //TODO: Add code to method
+      ResourceBundle mainMenuBundle = ResourceBundle.getBundle(
+              "timekeepertwo.MainMenuText",
+              Locale.ENGLISH);
+      TimeKeeperUI mainMenu = UIFactory.makeMainMenuUI(UIType.GUI, 
+              mainMenuBundle, 
+              user.getFirstName() + " " + user.getLastName(), 
+              menuOptions);
+      mainMenu.display();
   }
   
   

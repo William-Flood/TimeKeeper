@@ -66,10 +66,11 @@ public class PersonProjectAccess {
   /**
    * Retrieves a person record from file
    * @param personID
+   * @param password
    * @return The person with the matching personID
    * @throws FileNotFoundException 
    */
-  public static Person getPerson(String personID, String sentPassword)
+  public static Person getPerson(String personID, String password)
           throws FileNotFoundException {
       Person foundPerson = null;
       File personFile = new File(DIRECTORY + PERSON_FILE_NAME);
@@ -87,13 +88,13 @@ public class PersonProjectAccess {
               latch = false;
           }
           String foundID = inFile.next();
-          //System.out.println(foundID);
+          
           if(personID.equals(foundID)) {
               String fName = inFile.next();
               String lName = inFile.next();
               String storedPassword = inFile.next();
               String category = inFile.next();
-              if(sentPassword.equals(storedPassword)){
+              if(password.equals(storedPassword)){
                 foundPerson = new Person(foundID,
                       fName,
                       lName,
@@ -102,7 +103,7 @@ public class PersonProjectAccess {
                 latch = false;
               }
           }
-          else {
+          else if (latch) {
               inFile.nextLine();
           }
           

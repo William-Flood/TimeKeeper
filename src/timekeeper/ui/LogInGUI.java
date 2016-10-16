@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import net.miginfocom.swing.MigLayout;
@@ -24,17 +25,17 @@ import net.miginfocom.swing.MigLayout;
  *
  * @author k0513525
  */
-public class LogInGUI implements TimeKeeperUI {
+public class LogInGUI extends JFrame implements TimeKeeperUI {
     //public boolean running;
     
     public LogInGUI(ResourceBundle bundle, 
             LogInCheckHandler logInCheckHandler,
             NextStepHandler cancelHandler,
             NextStepHandler toMenuHandler) {
-        //running = true;
+        super();
         final int FRAME_HEIGHT = 150;
         final int FRAME_WIDTH = 350;
-        JFrame logInFrame = new JFrame();
+        //JFrame logInFrame = new JFrame();
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new MigLayout());
         JLabel lblUserName = new JLabel(bundle.getString("userNameLabel"));
@@ -44,8 +45,8 @@ public class LogInGUI implements TimeKeeperUI {
         //New row
         JLabel lblpassword = new JLabel(bundle.getString("passwordLabel"));
         mainPanel.add(lblpassword);
-        JTextField tfPassword = new JTextField(20);
-        mainPanel.add(tfPassword, "span 2, wrap");
+        JPasswordField pfPassword = new JPasswordField(20);
+        mainPanel.add(pfPassword, "span 2, wrap");
         //new row
         JLabel lblError = new JLabel();
         mainPanel.add(lblError);
@@ -53,33 +54,31 @@ public class LogInGUI implements TimeKeeperUI {
         btnCancel.addActionListener((ActionEvent e)-> {
             //running = false;
             cancelHandler.nextStep();
-            logInFrame.dispatchEvent(
-                    new WindowEvent(logInFrame, WindowEvent.WINDOW_CLOSING));
+            this.dispatchEvent(
+                    new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         });
         mainPanel.add(btnCancel);
         JButton btnLogIn = new JButton(bundle.getString("logInLabel"));
         btnLogIn.addActionListener((ActionEvent e)-> {
-            if(logInCheckHandler.checkLogIn(
-                    tfLogIn.getText(), tfLogIn.getText())) {
+            if(logInCheckHandler.checkLogIn(tfLogIn.getText(), pfPassword.getText())) {
                 //running = false;
                 toMenuHandler.nextStep();
-                logInFrame.setDefaultCloseOperation(
+                this.setDefaultCloseOperation(
                         WindowConstants.DISPOSE_ON_CLOSE);
-                logInFrame.dispatchEvent(
-                        new WindowEvent(logInFrame, WindowEvent.WINDOW_CLOSING));
+                this.dispatchEvent(
+                        new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
             } else {
                 lblError.setText(bundle.getString("logInFailLabel"));
             }
         });
         mainPanel.add(btnLogIn);
-        logInFrame.add(mainPanel);
-        logInFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        logInFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        logInFrame.setVisible(true);
+        this.add(mainPanel);
+        this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
     }
     
-    /*public boolean isRunning(){
-        return running;
-    }*/
+    public void display() {
+        this.setVisible(true);
+    }
 }

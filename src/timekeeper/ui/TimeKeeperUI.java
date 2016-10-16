@@ -10,5 +10,5 @@ package timekeeper.ui;
  * @author k0513525
  */
 public interface TimeKeeperUI {
-    
+    public void display();
 }
