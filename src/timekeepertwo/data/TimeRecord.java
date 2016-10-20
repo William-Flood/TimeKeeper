@@ -4,10 +4,7 @@
  * and open the template in the editor.
  */
 package timekeepertwo.data;
-import timekeepertwo.data.Person;
 import java.time.LocalDateTime;
-import flood.util.StringUtil;
-import timekeepertwo.data.Project;
 /**
  *
  * @author k0513525
