@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package timekeeperone.dataaccess;
+package timekeepertwo.dataaccess;
 import timekeepertwo.data.TimeRecord;
-import timekeeperone.data.Project;
+import timekeepertwo.data.Project;
 import timekeepertwo.data.Person;
 import java.io.PrintWriter;
 import java.io.FileWriter;

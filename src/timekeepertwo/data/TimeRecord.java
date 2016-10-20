@@ -7,7 +7,7 @@ package timekeepertwo.data;
 import timekeepertwo.data.Person;
 import java.time.LocalDateTime;
 import flood.util.StringUtil;
-import timekeeperone.data.Project;
+import timekeepertwo.data.Project;
 /**
  *
  * @author k0513525

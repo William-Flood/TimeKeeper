@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package timekeeperone.data;
+package timekeepertwo.data;
 import flood.util.StringUtil;
-
 /**
  *
  * @author k0513525
