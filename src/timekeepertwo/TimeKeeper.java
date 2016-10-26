@@ -93,7 +93,9 @@ public class TimeKeeper {
   };
     
   public static void main(String[] args) {
-      goToLogin();
+      //goToLogin();
+      System.out.println("Hello, World!");
+      //toProjectActivity();
   }
   
   static void goToLogin() {
@@ -139,6 +141,18 @@ public class TimeKeeper {
               user.getFirstName() + " " + user.getLastName(), 
               menuOptions);
       mainMenu.display();
+  }
+  
+  static void toProjectActivity() {
+      ResourceBundle mainMenuBundle = ResourceBundle.getBundle(
+              "timekeepertwo.MainMenuText",
+              Locale.ENGLISH);
+      TimeKeeperUI projectActivity = UIFactory.makeProjectActivityUI(UIType.GUI, 
+              mainMenuBundle, 
+              user.getFirstName() + " " + user.getLastName(), 
+              (userName,projectID,checkIn)->true, //TODO: Fill methods
+              ()->{});
+      projectActivity.display();
   }
   
   

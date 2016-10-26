@@ -52,5 +52,21 @@ public class UIFactory {
             throw new IllegalArgumentException("Invalid UI Type");
         }
     }
+    
+    public static TimeKeeperUI makeProjectActivityUI(UIType typeToMake,
+            ResourceBundle bundle,
+            String username,
+            ProjectActivityRegistrar registrar,
+            NextStepHandler canceler) {
+        if(UIType.GUI == typeToMake) {
+            return new ProjectAcivityGUI(bundle, 
+                    username, 
+                    registrar,
+                    canceler);
+        }
+        else {
+            throw new IllegalArgumentException("Invalid UI Type");
+        }
+    }
             
 }
