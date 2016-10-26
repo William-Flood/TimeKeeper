@@ -35,15 +35,15 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new MigLayout());
         JLabel lblProgramPrompt = new JLabel("Program:"/*bundle.getString("programPrompt")*/);
-        mainPanel.add(lblProgramPrompt, "span 2");
-        JTextField tfProject = new JTextField(10);
-        mainPanel.add(tfProject, "wrap");
+        mainPanel.add(lblProgramPrompt);
+        JTextField tfProject = new JTextField(25);
+        mainPanel.add(tfProject, "span 2, wrap");
         JCheckBox ckbSigningIn = new JCheckBox();
         mainPanel.add(ckbSigningIn);
         JLabel lblActivityPrompt = 
                 new JLabel("Checking in"/*bundle.getString("activityPrompt")*/);
         mainPanel.add(lblActivityPrompt, "span 2, wrap");
-        JButton btnCancel = new JButton(/*bundle.getString(
+        JButton btnCancel = new JButton("Cancel"/*bundle.getString(
             "cancelPrompt")*/);
         btnCancel.addActionListener(new ActionListener() {
                 @Override
@@ -53,12 +53,13 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
             
             });
         mainPanel.add(btnCancel);
-        JButton btnSend = new JButton(/*bundle.getString(
+        JButton btnSend = new JButton("Record"/*bundle.getString(
             "cancelPrompt")*/);
         btnSend.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //TODO: Perform save
+                    //TODO: Perform save.  I'm thinking this shouldn't
+                    //close the screen
                 }
             
             });

@@ -94,8 +94,9 @@ public class TimeKeeper {
     
   public static void main(String[] args) {
       //goToLogin();
-      System.out.println("Hello, World!");
-      //toProjectActivity();
+      //System.out.println("Hello, World!");
+      user = new Person("52", "dummy", "dummy", "dummy", "dummy");
+      toProjectActivity();
   }
   
   static void goToLogin() {
