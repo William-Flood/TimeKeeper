@@ -80,7 +80,7 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
         btnSend.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    int selectedProject = tblProject.getSelectedColumn();
+                    int selectedProject = tblProject.getSelectedRow();
                     if(selectedProject >= 0){
                         Project project = 
                             availableProjects[selectedProject];
