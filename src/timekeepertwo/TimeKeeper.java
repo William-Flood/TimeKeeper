@@ -148,12 +148,20 @@ public class TimeKeeper {
       ResourceBundle mainMenuBundle = ResourceBundle.getBundle(
               "timekeepertwo.MainMenuText",
               Locale.ENGLISH);
+      Project[] projectList;
+      try{
+          projectList = PersonProjectAccess.getProjectList();
+      }catch(FileNotFoundException ex) {
+          projectList = new Project[]{};
+      }
       TimeKeeperUI projectActivity = UIFactory.makeProjectActivityUI(UIType.GUI, 
               mainMenuBundle, 
               user.getFirstName() + " " + user.getLastName(), 
+              projectList,
               (userName,projectID,checkIn)->true, //TODO: Fill methods
               ()->{});
       projectActivity.display();
+      
   }
   
   

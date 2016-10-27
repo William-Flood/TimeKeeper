@@ -6,6 +6,7 @@
 package timekeeper.ui;
 
 import java.util.ResourceBundle;
+import timekeepertwo.data.Project;
 
 /**
  *
@@ -56,11 +57,13 @@ public class UIFactory {
     public static TimeKeeperUI makeProjectActivityUI(UIType typeToMake,
             ResourceBundle bundle,
             String username,
+            Project[] availableProjects,
             ProjectActivityRegistrar registrar,
             NextStepHandler canceler) {
         if(UIType.GUI == typeToMake) {
             return new ProjectAcivityGUI(bundle, 
                     username, 
+                    availableProjects,
                     registrar,
                     canceler);
         }

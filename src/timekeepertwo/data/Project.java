@@ -42,6 +42,12 @@ public class Project {
         this.name = name;
         this.description = description;
     }
+    
+    @Override
+    public String toString() {
+        return getProjectID()+", "+getName()+", "+getActiveFlag()+
+                ", "+getDescription();
+    }
 
   /*public Project (String projectID, String activeFlag, String name, String description) {
   }*/

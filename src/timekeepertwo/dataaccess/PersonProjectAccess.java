@@ -9,6 +9,7 @@ import timekeepertwo.data.Project;
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 /**
@@ -16,7 +17,7 @@ import java.util.regex.Pattern;
  * @author k0513525
  */
 public class PersonProjectAccess {
-  static final String SEPARATOR = "[|]";
+  static final String SEPARATOR = "[|]|"+System.lineSeparator();
   static final String DIRECTORY = "..\\..\\sample_data\\";
   static final String PERSON_FILE_NAME = "\\person_data.txt";
   static final String PROJECT_FILE_NAME = "project_data.txt";
@@ -151,5 +152,42 @@ public class PersonProjectAccess {
       }
       inFile.close();
       return foundProject;
+  }
+  
+  /**
+   * Retrieves a project record from file
+   * @param projectID
+   * @return
+   * @throws FileNotFoundException 
+   */
+  public static Project[] getProjectList() throws FileNotFoundException {
+      ArrayList<Project> projectArrayList = new ArrayList<Project>();
+      File projectFile = new File(DIRECTORY + PROJECT_FILE_NAME);
+      Scanner inFile;
+      try {
+        inFile = new Scanner(projectFile); 
+      }
+      catch (FileNotFoundException ex) {
+        throw ex;
+      }
+      //Pattern pipePattern = Pattern.compile("^([^\\\\|]*\\\\|)+$");
+              //Regex found at http://stackoverflow.com/questions/7959929/regex-to-match-a-pipe-delineated-file
+      inFile.useDelimiter(SEPARATOR);
+      boolean latch = true;
+      while(latch) {
+          String foundID = inFile.next();
+          String activity = inFile.next();
+          String name = inFile.next();
+          String description = inFile.next();
+          projectArrayList.add( new Project(foundID,activity,name,description));
+          inFile.nextLine();
+          if(false == inFile.hasNextLine()) {
+              latch = false;
+          }
+          
+      }
+      inFile.close();
+      Project[] projectList = new Project[projectArrayList.size()];
+      return projectArrayList.toArray(projectList);
   }
 }

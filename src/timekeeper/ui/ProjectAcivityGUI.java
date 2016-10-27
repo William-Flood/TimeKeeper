@@ -13,9 +13,11 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 import static timekeeper.ui.MainMenuGUI.WIDTH;
+import timekeepertwo.data.Project;
 
 /**
  *
@@ -23,21 +25,35 @@ import static timekeeper.ui.MainMenuGUI.WIDTH;
  */
 public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
     
-    static final int WIDTH = 250;
-    static final int HEIGHT = 150;
+    static final int WIDTH = 300;
+    static final int BASE_HEIGHT = 170;
+    static final int HEIGHT_SCALE = 20;
     
+    /**
+     *
+     * @param bundle
+     * @param username
+     * @param availableProjects
+     */
     public ProjectAcivityGUI(
             ResourceBundle bundle,
             String username,
+            Project[] availableProjects,
             ProjectActivityRegistrar activityRecorder,
             NextStepHandler canceler) {
         super("Title"/*bundle.getString("title")*/); //TODO: create resource bundle to handle gui; remove hardcoding
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new MigLayout());
-        JLabel lblProgramPrompt = new JLabel("Program:"/*bundle.getString("programPrompt")*/);
-        mainPanel.add(lblProgramPrompt);
-        JTextField tfProject = new JTextField(25);
-        mainPanel.add(tfProject, "span 2, wrap");
+        JLabel lblProgramPrompt = new JLabel("Program:"/*bundle.getString("projectPrompt")*/);
+        mainPanel.add(lblProgramPrompt, "wrap");
+        String[] projectTableHeaders = {
+            "Project ID"/*bundle.getString("projectID")*/,
+        "Name"/*bundle.getString("projectName")*/};
+        JTable tblProject = new JTable(tablefyProjects(availableProjects), 
+                projectTableHeaders);
+        tblProject.getColumnModel().getColumn(1).setPreferredWidth(250);
+        mainPanel.add(tblProject.getTableHeader(), "span 2, wrap");
+        mainPanel.add(tblProject, "span 2, wrap");
         JCheckBox ckbSigningIn = new JCheckBox();
         mainPanel.add(ckbSigningIn);
         JLabel lblActivityPrompt = 
@@ -53,6 +69,8 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
             
             });
         mainPanel.add(btnCancel);
+        JLabel lblMessage = 
+                new JLabel();
         JButton btnSend = new JButton("Record"/*bundle.getString(
             "cancelPrompt")*/);
         btnSend.addActionListener(new ActionListener() {
@@ -63,20 +81,34 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
                 }
             
             });
-        mainPanel.add(btnSend);
-        
+        mainPanel.add(btnSend, "wrap");
+        mainPanel.add(lblMessage);
         
         
         
         
         this.add(mainPanel);
-        this.setSize(WIDTH, HEIGHT);
+        this.setSize(WIDTH, BASE_HEIGHT + 
+                HEIGHT_SCALE*availableProjects.length);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     @Override
     public void display() {
         this.setVisible(true);
+    }
+    
+    private Object[][] tablefyProjects(Project[] availableProjects) {
+        Object[][] returnTable = new Object[availableProjects.length][3];
+        int i = 0;
+        for(Project availableProject:availableProjects) {
+            returnTable[i][0] = availableProject.getProjectID();
+            returnTable[i][1] = availableProject.getName();
+            //returnTable[i][2] = availableProject.getActiveFlag();
+            //returnTable[i][2] = availableProject.getDescription();
+            i++;
+        }
+        return returnTable;
     }
     
     
