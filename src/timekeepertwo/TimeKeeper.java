@@ -22,8 +22,13 @@ import timekeeper.ui.MenuOption;
 import timekeeper.ui.NextStepHandler;
 
 /**
- *
- * @author k0513525
+ * Records activity on various projects
+ * Known issues:
+ *   -Program will not handle errors reading the person file
+ *   -Program will display inactive projects
+ *   -Program will not display time spent on project if ending work
+ *   -ProjectActivityGUI text hard-coded - should use resource bundle 
+ * @author DragonSheep
  */
 public class TimeKeeper {
 

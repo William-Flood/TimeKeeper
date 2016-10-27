@@ -45,6 +45,8 @@ public class PersonProjectAccess {
           if(false == inFile.hasNextLine()) {
               throw new IllegalArgumentException();
           }
+          //inFile.next() is set to read up to the next '|' or the next
+          //newline
           String foundID = inFile.next();
           //System.out.println(foundID);
           if(personID.equals(foundID)) {
@@ -56,6 +58,8 @@ public class PersonProjectAccess {
               latch = false;
           }
           else {
+          //Unless the file format was corrupted, infile.nextLine() will cause
+          //a jump to the next line without skipping any other content
               inFile.nextLine();
           }
           
@@ -65,7 +69,7 @@ public class PersonProjectAccess {
   }
   
   /**
-   * Retrieves a person record from file
+   * Retrieves a specified person from file given the correct password
    * @param personID
    * @param password
    * @return The person with the matching personID
@@ -85,6 +89,8 @@ public class PersonProjectAccess {
       inFile.useDelimiter(SEPARATOR);
       boolean latch = true;
       while(latch) {
+          //inFile.next() is set to read up to the next '|' or the next
+          //newline
           String foundID = inFile.next();
           
           if(personID.equals(foundID)) {
@@ -102,6 +108,8 @@ public class PersonProjectAccess {
               }
           }
           else if (latch) {
+          //Unless the file format was corrupted, infile.nextLine() will cause
+          //a jump to the next line without skipping any other content
               inFile.nextLine();
           }
           if(false == inFile.hasNextLine()) {
@@ -129,11 +137,12 @@ public class PersonProjectAccess {
       catch (FileNotFoundException ex) {
         throw ex;
       }
-      //Pattern pipePattern = Pattern.compile("^([^\\\\|]*\\\\|)+$");
-              //Regex found at http://stackoverflow.com/questions/7959929/regex-to-match-a-pipe-delineated-file
+      
       inFile.useDelimiter(SEPARATOR);
       boolean latch = true;
       while(latch) {
+          //inFile.next() is set to read up to the next '|' or the next
+          //newline
           String foundID = inFile.next();
           if(projectID.equals(foundID)) {
               String activity = inFile.next();
@@ -143,6 +152,8 @@ public class PersonProjectAccess {
               latch = false;
           }
           else {
+          //Unless the file format was corrupted, infile.nextLine() will cause
+          //a jump to the next line without skipping any other content
               inFile.nextLine();
           }
           if(false == inFile.hasNextLine()) {
@@ -155,7 +166,7 @@ public class PersonProjectAccess {
   }
   
   /**
-   * Retrieves a project record from file
+   * Retrieves all available projects
    * @param projectID
    * @return
    * @throws FileNotFoundException 
@@ -170,23 +181,29 @@ public class PersonProjectAccess {
       catch (FileNotFoundException ex) {
         throw ex;
       }
-      //Pattern pipePattern = Pattern.compile("^([^\\\\|]*\\\\|)+$");
-              //Regex found at http://stackoverflow.com/questions/7959929/regex-to-match-a-pipe-delineated-file
+      
       inFile.useDelimiter(SEPARATOR);
       boolean latch = true;
       while(latch) {
+          //inFile.next() is set to read up to the next '|' or the next
+          //newline
           String foundID = inFile.next();
           String activity = inFile.next();
           String name = inFile.next();
           String description = inFile.next();
           projectArrayList.add( new Project(foundID,activity,name,description));
+          //Unless the file format was corrupted, infile.nextLine() will cause
+          //a jump to the next line without skipping any other content
           inFile.nextLine();
+          
+          //Stop reading through file if at end
           if(false == inFile.hasNextLine()) {
               latch = false;
           }
           
       }
       inFile.close();
+      //Create an array to populate with data from projectArrayList
       Project[] projectList = new Project[projectArrayList.size()];
       return projectArrayList.toArray(projectList);
   }
