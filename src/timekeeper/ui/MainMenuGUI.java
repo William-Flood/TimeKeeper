@@ -7,6 +7,7 @@ package timekeeper.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -40,6 +41,10 @@ public class MainMenuGUI extends JFrame implements TimeKeeperUI{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     menuOption.getMethodCall().nextStep();
+                    
+                    MainMenuGUI.this.dispatchEvent(
+                        new WindowEvent(MainMenuGUI.this, 
+                                WindowEvent.WINDOW_CLOSING));
                 }
             
             });
@@ -54,5 +59,10 @@ public class MainMenuGUI extends JFrame implements TimeKeeperUI{
     
     public void display() {
         this.setVisible(true);
+    }
+    
+    public void closeWindow(){
+        this.dispatchEvent(
+                        new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 }

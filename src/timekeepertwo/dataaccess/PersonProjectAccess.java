@@ -85,9 +85,6 @@ public class PersonProjectAccess {
       inFile.useDelimiter(SEPARATOR);
       boolean latch = true;
       while(latch) {
-          if(false == inFile.hasNextLine()) {
-              latch = false;
-          }
           String foundID = inFile.next();
           
           if(personID.equals(foundID)) {
@@ -106,6 +103,9 @@ public class PersonProjectAccess {
           }
           else if (latch) {
               inFile.nextLine();
+          }
+          if(false == inFile.hasNextLine()) {
+              latch = false;
           }
           
       }
@@ -134,9 +134,6 @@ public class PersonProjectAccess {
       inFile.useDelimiter(SEPARATOR);
       boolean latch = true;
       while(latch) {
-          if(false == inFile.hasNextLine()) {
-              throw new IllegalArgumentException();
-          }
           String foundID = inFile.next();
           if(projectID.equals(foundID)) {
               String activity = inFile.next();
@@ -147,6 +144,9 @@ public class PersonProjectAccess {
           }
           else {
               inFile.nextLine();
+          }
+          if(false == inFile.hasNextLine()) {
+              throw new IllegalArgumentException();
           }
           
       }

@@ -60,7 +60,8 @@ public class LogInGUI extends JFrame implements TimeKeeperUI {
         mainPanel.add(btnCancel);
         JButton btnLogIn = new JButton(bundle.getString("logInLabel"));
         btnLogIn.addActionListener((ActionEvent e)-> {
-            if(logInCheckHandler.checkLogIn(tfLogIn.getText(), pfPassword.getText())) {
+            if(logInCheckHandler.checkLogIn(tfLogIn.getText(),
+                    new String(pfPassword.getPassword()))) {
                 //running = false;
                 toMenuHandler.nextStep();
                 this.setDefaultCloseOperation(

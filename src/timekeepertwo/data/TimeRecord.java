@@ -37,7 +37,10 @@ public class TimeRecord {
     
     
   
-  public TimeRecord (Project project, Person person, String startOrStop, LocalDateTime dateAndTime) {
+  public TimeRecord (Project project, 
+          Person person, 
+          String startOrStop, 
+          LocalDateTime dateAndTime) {
       this.project = project;
       this.person = person;
       if(startOrStop.equals("S") || startOrStop.equals("E")) {

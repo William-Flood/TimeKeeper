@@ -62,7 +62,6 @@ public class UIFactory {
             NextStepHandler canceler) {
         if(UIType.GUI == typeToMake) {
             return new ProjectAcivityGUI(bundle, 
-                    username, 
                     availableProjects,
                     registrar,
                     canceler);

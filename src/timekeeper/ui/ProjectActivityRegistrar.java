@@ -5,12 +5,14 @@
  */
 package timekeeper.ui;
 
+import timekeepertwo.data.Person;
+import timekeepertwo.data.Project;
+
 /**
  *
  * @author DragonSheep
  */
 public interface ProjectActivityRegistrar {
-    public boolean RecordActivity(String username, 
-            String projectID, 
+    public boolean RecordActivity(Project project,  
             String typeOfActivity);
 }

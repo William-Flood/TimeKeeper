@@ -7,6 +7,7 @@ package timekeeper.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -37,7 +38,6 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
      */
     public ProjectAcivityGUI(
             ResourceBundle bundle,
-            String username,
             Project[] availableProjects,
             ProjectActivityRegistrar activityRecorder,
             NextStepHandler canceler) {
@@ -65,24 +65,43 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     canceler.nextStep();
+                    
+                    ProjectAcivityGUI.this.dispatchEvent(
+                        new WindowEvent(ProjectAcivityGUI.this, 
+                                WindowEvent.WINDOW_CLOSING));
                 }
             
             });
         mainPanel.add(btnCancel);
-        JLabel lblMessage = 
+        JLabel lblResponse = 
                 new JLabel();
         JButton btnSend = new JButton("Record"/*bundle.getString(
             "cancelPrompt")*/);
         btnSend.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //TODO: Perform save.  I'm thinking this shouldn't
-                    //close the screen
+                    int selectedProject = tblProject.getSelectedColumn();
+                    if(selectedProject >= 0){
+                        Project project = 
+                            availableProjects[selectedProject];
+                        //Sets the value of typeOfActivity to "S" when the
+                        //checkbox is marked, and to "E" otherwise.
+                        String typeOfActivity = ckbSigningIn.isSelected()?
+                             "S":"E";   
+                        if(activityRecorder.RecordActivity(project, 
+                            typeOfActivity)){
+                            lblResponse.setText("Record saved!");
+                        } else {
+                            lblResponse.setText("Sad face");
+                        }
+                    } else {
+                        lblResponse.setText("Please actually select a project");
+                    }
                 }
             
             });
         mainPanel.add(btnSend, "wrap");
-        mainPanel.add(lblMessage);
+        mainPanel.add(lblResponse);
         
         
         

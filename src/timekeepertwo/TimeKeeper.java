@@ -89,17 +89,17 @@ public class TimeKeeper {
   static Person user;
   //TODO: add project signin option to main menu
   static final MenuOption[] menuOptions = {
+      new MenuOption("recordProjectActivity",()->toProjectActivity()),
       new MenuOption("logOut",()->goToLogin())
   };
     
   public static void main(String[] args) {
-      //goToLogin();
-      //System.out.println("Hello, World!");
-      user = new Person("52", "dummy", "dummy", "dummy", "dummy");
-      toProjectActivity();
+      goToLogin();
+      //user = new Person("52", "dummy", "dummy", "dummy", "dummy");
+      //toProjectActivity();
   }
   
-  static void goToLogin() {
+  public static void goToLogin() {
     user = null;
       ResourceBundle logInBundle = ResourceBundle.getBundle(
               "timekeepertwo.LogInText",
@@ -118,7 +118,7 @@ public class TimeKeeper {
    * @param password The password of the user
    * @return Whether or not the login was successful
    */
-  static boolean attemptLogin (String username, String password) {
+  public static boolean attemptLogin (String username, String password) {
       boolean wasPersonFound = false;
       Person foundPerson;
       try {
@@ -133,7 +133,7 @@ public class TimeKeeper {
       return wasPersonFound;
   }
   
-  static void toMainMenu() {
+  public static void toMainMenu() {
       ResourceBundle mainMenuBundle = ResourceBundle.getBundle(
               "timekeepertwo.MainMenuText",
               Locale.ENGLISH);
@@ -144,7 +144,7 @@ public class TimeKeeper {
       mainMenu.display();
   }
   
-  static void toProjectActivity() {
+  public static void toProjectActivity() {
       ResourceBundle mainMenuBundle = ResourceBundle.getBundle(
               "timekeepertwo.MainMenuText",
               Locale.ENGLISH);
@@ -158,10 +158,28 @@ public class TimeKeeper {
               mainMenuBundle, 
               user.getFirstName() + " " + user.getLastName(), 
               projectList,
-              (userName,projectID,checkIn)->true, //TODO: Fill methods
-              ()->{});
+              (project,activityType)->recordActivity(project, 
+                activityType),
+              ()->toMainMenu());
       projectActivity.display();
       
+  }
+  
+  public static boolean recordActivity(Project project, 
+          String activityType) {
+      
+    
+        TimeRecord recordToAdd = new TimeRecord(project,
+                user,
+                activityType,
+                LocalDateTime.now());
+    
+        try {
+            RecordSaver.saveTimeRecord(recordToAdd);
+        } catch (IOException ex) {
+            return false;
+        }
+        return true;
   }
   
   
