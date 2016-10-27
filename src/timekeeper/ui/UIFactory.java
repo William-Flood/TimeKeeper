@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 import timekeepertwo.data.Project;
 
 /**
- *
+ * A factory class to generate user interface elements
  * @author k0513525
  */
 public class UIFactory {
@@ -42,6 +42,15 @@ public class UIFactory {
         }
     }
     
+    /**
+     * Generates a user interface element used to allow a user to select
+     * from a list of functionality
+     * @param typeToMake Indicates which type of UI should be created
+     * @param bundle A resource bundle used to pass in text for the UI
+     * @param username The name of the current user
+     * @param menuOptions A list of options
+     * @return The created user interface
+     */
     public static TimeKeeperUI makeMainMenuUI(UIType typeToMake,
             ResourceBundle bundle,
             String username,
@@ -54,9 +63,20 @@ public class UIFactory {
         }
     }
     
+    /**
+     * Generates a user interface meant to allow recording of
+     * project activity
+     * @param typeToMake Indicates which type of UI should be created
+     * @param bundle  A resource bundle used to pass in text for the UI
+     * @param availableProjects A list of available projects
+     * @param registrar A function used to pass a project to record
+     * activity on and the type of activity to record
+     * @param canceler A function controlling what happens when 'cancel'
+     * is selected
+     * @return 
+     */
     public static TimeKeeperUI makeProjectActivityUI(UIType typeToMake,
             ResourceBundle bundle,
-            String username,
             Project[] availableProjects,
             ProjectActivityRegistrar registrar,
             NextStepHandler canceler) {

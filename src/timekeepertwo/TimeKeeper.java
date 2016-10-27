@@ -106,9 +106,10 @@ public class TimeKeeper {
               Locale.ENGLISH);
       TimeKeeperUI logInUI = UIFactory.makeLogInUI(UIType.GUI, 
               logInBundle, 
+                //Code to call in order to log user in
               (username,password)->attemptLogin (username, password), 
-              ()->{}, 
-              ()->toMainMenu());
+              ()->{}, //Code to call after user cancels activity
+              ()->toMainMenu()); //Code to call after successful login
       logInUI.display();
     }
   
@@ -141,6 +142,8 @@ public class TimeKeeper {
               mainMenuBundle, 
               user.getFirstName() + " " + user.getLastName(), 
               menuOptions);
+      
+      //Make the menu visible
       mainMenu.display();
   }
   
@@ -152,19 +155,33 @@ public class TimeKeeper {
       try{
           projectList = PersonProjectAccess.getProjectList();
       }catch(FileNotFoundException ex) {
+          //In the event of a file read error, simply display nothing
           projectList = new Project[]{};
       }
+      
+      //Creates the UI
       TimeKeeperUI projectActivity = UIFactory.makeProjectActivityUI(UIType.GUI, 
-              mainMenuBundle, 
-              user.getFirstName() + " " + user.getLastName(), 
-              projectList,
+              mainMenuBundle,  
+              projectList, //TODO: filter projectList to remove inactive projects
+              
+              //Code to call in order to record project activity
               (project,activityType)->recordActivity(project, 
                 activityType),
+              
+              //Code to call if the user cancels activity
               ()->toMainMenu());
+      
+      //Makes the window visible
       projectActivity.display();
       
   }
   
+  /**
+   * Records project activity to file
+   * @param project The project with activity to record
+   * @param activityType Whether work began or ended on the project
+   * @return A value to indicate whether the save succeeded
+   */
   public static boolean recordActivity(Project project, 
           String activityType) {
       

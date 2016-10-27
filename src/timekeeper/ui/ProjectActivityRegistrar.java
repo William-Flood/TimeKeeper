@@ -13,6 +13,13 @@ import timekeepertwo.data.Project;
  * @author DragonSheep
  */
 public interface ProjectActivityRegistrar {
+    
+    /**
+     * Calls a controller to write a record of project activity
+     * @param project A project to record activity on
+     * @param typeOfActivity The type of activity to record(Starting or stopping)
+     * @return 
+     */
     public boolean RecordActivity(Project project,  
             String typeOfActivity);
 }

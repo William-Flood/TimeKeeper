@@ -51,13 +51,27 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
         "Name"/*bundle.getString("projectName")*/};
         JTable tblProject = new JTable(tablefyProjects(availableProjects), 
                 projectTableHeaders);
+        
+        //Causes the second column on tblProject to have a preferred width
+        //of 250 units.
         tblProject.getColumnModel().getColumn(1).setPreferredWidth(250);
+        
+        //Adds tblProject and its header to mainPanel, causing it to take up two
+        //columns and cause the next added control to move to the next row.
         mainPanel.add(tblProject.getTableHeader(), "span 2, wrap");
         mainPanel.add(tblProject, "span 2, wrap");
+        //A checkbox to allow the user to indicate if one is starting or
+        //ending work on a project
         JCheckBox ckbSigningIn = new JCheckBox();
         mainPanel.add(ckbSigningIn);
+        
+        //A text prompt requesting information as to whether the user is
+        //beginning or ending project work
         JLabel lblActivityPrompt = 
                 new JLabel("Checking in"/*bundle.getString("activityPrompt")*/);
+        
+        //Adds lblActivityPrompt to mainPanel, causing it to take up two
+        //columns and cause the next added control to move to the next row.
         mainPanel.add(lblActivityPrompt, "span 2, wrap");
         JButton btnCancel = new JButton("Cancel"/*bundle.getString(
             "cancelPrompt")*/);
@@ -73,6 +87,9 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
             
             });
         mainPanel.add(btnCancel);
+        
+        //lblResponse has to be declared before the btnSend action listener
+        //is added, so the action listener can use it.
         JLabel lblResponse = 
                 new JLabel();
         JButton btnSend = new JButton("Record"/*bundle.getString(
@@ -81,6 +98,8 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     int selectedProject = tblProject.getSelectedRow();
+                    //selectedProject will be -1 if no project was selected
+                    //in the table
                     if(selectedProject >= 0){
                         Project project = 
                             availableProjects[selectedProject];
@@ -92,14 +111,16 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
                             typeOfActivity)){
                             lblResponse.setText("Record saved!");
                         } else {
-                            lblResponse.setText("Sad face");
+                            lblResponse.setText("Sad face :,(");
                         }
                     } else {
+                        //No project was selected
                         lblResponse.setText("Please actually select a project");
                     }
                 }
             
             });
+        //Place btnSend at the end of its row on the panel.
         mainPanel.add(btnSend, "wrap");
         mainPanel.add(lblResponse);
         
@@ -107,24 +128,33 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
         
         
         this.add(mainPanel);
+        
+        //Height of window should scale with the size of the table;
         this.setSize(WIDTH, BASE_HEIGHT + 
                 HEIGHT_SCALE*availableProjects.length);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
+    /**
+     * Allows an object to make this UI visible
+     */
     @Override
     public void display() {
         this.setVisible(true);
     }
     
+    /**
+     * Creates a data source for a JTable based on an array of Project objects
+     * @param availableProjects An array of Project objects to populate a
+     * JTable with
+     * @return A valid data source for a JTable
+     */
     private Object[][] tablefyProjects(Project[] availableProjects) {
         Object[][] returnTable = new Object[availableProjects.length][3];
         int i = 0;
         for(Project availableProject:availableProjects) {
             returnTable[i][0] = availableProject.getProjectID();
             returnTable[i][1] = availableProject.getName();
-            //returnTable[i][2] = availableProject.getActiveFlag();
-            //returnTable[i][2] = availableProject.getDescription();
             i++;
         }
         return returnTable;

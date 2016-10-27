@@ -6,7 +6,7 @@
 package timekeeper.ui;
 
 /**
- *
+ * An enumeration listing the types of supported user interfaces
  * @author DragonSheep
  */
 public enum UIType {

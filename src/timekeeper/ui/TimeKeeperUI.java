@@ -6,9 +6,12 @@
 package timekeeper.ui;
 
 /**
- *
+ * A user interface element of the TimeKeeper app
  * @author k0513525
  */
 public interface TimeKeeperUI {
+    /**
+     * Allows objects to make this UI display
+     */
     public void display();
 }
