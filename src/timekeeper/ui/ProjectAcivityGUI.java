@@ -8,6 +8,7 @@ package timekeeper.ui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.UncheckedIOException;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -107,10 +108,10 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
                         //checkbox is marked, and to "E" otherwise.
                         String typeOfActivity = ckbSigningIn.isSelected()?
                              "S":"E";   
-                        if(activityRecorder.RecordActivity(project, 
-                            typeOfActivity)){
+                        try{activityRecorder.RecordActivity(project, 
+                            typeOfActivity);
                             lblResponse.setText("Record saved!");
-                        } else {
+                        } catch(UncheckedIOException ex) {
                             lblResponse.setText("Sad face :,(");
                         }
                     } else {

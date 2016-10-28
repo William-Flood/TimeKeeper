@@ -17,7 +17,7 @@ import java.io.IOException;
  * @author k0513525
  */
 public class RecordSaver {
-    static final String outPath = "..//..//sample_data/time_record_data.txt";
+    static final String OUTPATH = "..//..//sample_data/time_record_data.txt";
     
     /**
      * Writes a record to file
@@ -25,7 +25,7 @@ public class RecordSaver {
      * @throws IOException 
      */
     public static void saveTimeRecord(TimeRecord recordToSave) throws IOException {
-        File outFile = new File(outPath);
+        File outFile = new File(OUTPATH);
         FileWriter appender = new FileWriter(outFile, true);
         String projectID = recordToSave.getProject().getProjectID();
         String personID = recordToSave.getPerson().getPersonID();

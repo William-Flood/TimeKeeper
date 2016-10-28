@@ -12,14 +12,18 @@ import timekeepertwo.dataaccess.RecordSaver;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.util.Locale;
+import java.util.Optional;
 import timekeeper.ui.TimeKeeperUI;
 
 import timekeeper.ui.UIFactory;
 import timekeeper.ui.UIType;
 import java.util.ResourceBundle;
+import java.util.stream.Stream;
 import timekeeper.ui.MenuOption;
 import timekeeper.ui.NextStepHandler;
+import timekeepertwo.dataaccess.RecordRetriever;
 
 /**
  * Records activity on various projects
@@ -163,11 +167,14 @@ public class TimeKeeper {
           //In the event of a file read error, simply display nothing
           projectList = new Project[]{};
       }
+      Project[] filteredList = Stream.of(projectList).
+              filter((project)->project.getActiveFlag().equals("A")).
+              toArray(Project[]::new);
       
       //Creates the UI
       TimeKeeperUI projectActivity = UIFactory.makeProjectActivityUI(UIType.GUI, 
               mainMenuBundle,  
-              projectList, //TODO: filter projectList to remove inactive projects
+              filteredList, //TODO: filter projectList to remove inactive projects
               
               //Code to call in order to record project activity
               (project,activityType)->recordActivity(project, 
@@ -187,7 +194,7 @@ public class TimeKeeper {
    * @param activityType Whether work began or ended on the project
    * @return A value to indicate whether the save succeeded
    */
-  public static boolean recordActivity(Project project, 
+  public static void recordActivity(Project project, 
           String activityType) {
       
     
@@ -197,11 +204,17 @@ public class TimeKeeper {
                 LocalDateTime.now());
     
         try {
+            Optional<TimeRecord> latestRecord = 
+                    RecordRetriever.returnStartActivity(project, user);
+            System.out.println(latestRecord.isPresent()?
+                    latestRecord.get().getDateAndTime():"nada"
+            );
             RecordSaver.saveTimeRecord(recordToAdd);
         } catch (IOException ex) {
-            return false;
+            throw new UncheckedIOException(ex);
+        } catch(UncheckedIOException ex) {
+            throw ex;
         }
-        return true;
   }
   
   

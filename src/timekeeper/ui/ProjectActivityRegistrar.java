@@ -20,6 +20,6 @@ public interface ProjectActivityRegistrar {
      * @param typeOfActivity The type of activity to record(Starting or stopping)
      * @return 
      */
-    public boolean RecordActivity(Project project,  
+    public void RecordActivity(Project project,  
             String typeOfActivity);
 }
