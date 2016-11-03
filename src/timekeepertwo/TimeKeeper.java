@@ -13,6 +13,8 @@ import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import java.util.Optional;
 import timekeeper.ui.TimeKeeperUI;
@@ -194,7 +196,7 @@ public class TimeKeeper {
    * @param activityType Whether work began or ended on the project
    * @return A value to indicate whether the save succeeded
    */
-  public static void recordActivity(Project project, 
+  public static long recordActivity(Project project, 
           String activityType) {
       
     
@@ -206,10 +208,17 @@ public class TimeKeeper {
         try {
             Optional<TimeRecord> latestRecord = 
                     RecordRetriever.returnStartActivity(project, user);
-            System.out.println(latestRecord.isPresent()?
+            /*System.out.println(latestRecord.isPresent()?
                     latestRecord.get().getDateAndTime():"nada"
-            );
+            );*/
             RecordSaver.saveTimeRecord(recordToAdd);
+            if(latestRecord.isPresent()){
+                return ChronoUnit.HOURS.between(
+                        latestRecord.get().getDateAndTime(), 
+                        recordToAdd.getDateAndTime());
+            } else {
+                return -1;
+            }
         } catch (IOException ex) {
             throw new UncheckedIOException(ex);
         } catch(UncheckedIOException ex) {

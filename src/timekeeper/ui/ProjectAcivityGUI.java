@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.UncheckedIOException;
+import java.text.DecimalFormat;
+import java.util.Formatter;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -108,9 +110,17 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
                         //checkbox is marked, and to "E" otherwise.
                         String typeOfActivity = ckbSigningIn.isSelected()?
                              "S":"E";   
-                        try{activityRecorder.RecordActivity(project, 
+                        try{
+                            long hoursSpent = 
+                                    activityRecorder.RecordActivity(project, 
                             typeOfActivity);
-                            lblResponse.setText("Record saved!");
+                            if(hoursSpent > 0){
+                            lblResponse.setText("You've spent " +
+                                (new DecimalFormat("###.##")).format(hoursSpent) + 
+                                " hours on this project!");
+                            } else{
+                                lblResponse.setText("Record saved!");
+                            }
                         } catch(UncheckedIOException ex) {
                             lblResponse.setText("Sad face :,(");
                         }
