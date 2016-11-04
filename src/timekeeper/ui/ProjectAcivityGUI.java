@@ -114,7 +114,7 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
                             long hoursSpent = 
                                     activityRecorder.RecordActivity(project, 
                             typeOfActivity);
-                            if(hoursSpent > 0){
+                            if(hoursSpent > 0 && !ckbSigningIn.isSelected()){
                             lblResponse.setText(bundle.getString(
                                     "timeReportOne") +
                                 (new DecimalFormat("###.##")).format(hoursSpent) + 

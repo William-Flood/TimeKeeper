@@ -22,7 +22,7 @@ import timekeepertwo.data.TimeRecord;
 
 /**
  *
- * @author NH228U02
+ * @author DragonSheep
  */
 public class RecordRetriever {
 
