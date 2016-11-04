@@ -31,8 +31,6 @@ import timekeepertwo.dataaccess.RecordRetriever;
  * Records activity on various projects
  * Known issues:
  *   -Program will not handle errors reading the person file
- *   -Program will display inactive projects
- *   -Program will not display time spent on project if ending work
  *   -ProjectActivityGUI text hard-coded - should use resource bundle 
  * @author DragonSheep
  */
@@ -130,7 +128,7 @@ public class TimeKeeper {
    * @param password The password of the user
    * @return Whether or not the login was successful
    */
-  public static boolean attemptLogin (String username, String password) {
+  public static boolean attemptLogin (String username, String password)  {
       boolean wasPersonFound = false;
       Person foundPerson;
       try {
@@ -140,7 +138,7 @@ public class TimeKeeper {
             wasPersonFound = true;
         }
       } catch (FileNotFoundException e) {
-          //TODO: create view to display file not found exception
+          throw new UncheckedIOException(e);
       }
       return wasPersonFound;
   }
@@ -159,8 +157,8 @@ public class TimeKeeper {
   }
   
   public static void toProjectActivity() {
-      ResourceBundle mainMenuBundle = ResourceBundle.getBundle(
-              "timekeepertwo.MainMenuText",
+      ResourceBundle projectActivityBundle = ResourceBundle.getBundle(
+              "timekeepertwo.ProjectActivityText",
               Locale.ENGLISH);
       Project[] projectList;
       try{
@@ -175,7 +173,7 @@ public class TimeKeeper {
       
       //Creates the UI
       TimeKeeperUI projectActivity = UIFactory.makeProjectActivityUI(UIType.GUI, 
-              mainMenuBundle,  
+              projectActivityBundle,  
               filteredList, //TODO: filter projectList to remove inactive projects
               
               //Code to call in order to record project activity

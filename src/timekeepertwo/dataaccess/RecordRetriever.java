@@ -46,8 +46,10 @@ public class RecordRetriever {
                     map((line) -> {
                         return line.split("[|]");
                     }).filter(
-                        (splitLine)->currentUser.getPersonID()
-                                .equals(splitLine[1])
+                        (splitLine)->(currentUser.getPersonID()
+                                .equals(splitLine[1])&&
+                                        workingProject.getProjectID().
+                                                equals(splitLine[0]))
                     );
             Stream<TimeRecord> timeRecords
                 = splitTimeRecordLines.map((splitLine) -> {

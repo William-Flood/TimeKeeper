@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
@@ -60,15 +61,26 @@ public class LogInGUI extends JFrame implements TimeKeeperUI {
         mainPanel.add(btnCancel);
         JButton btnLogIn = new JButton(bundle.getString("logInLabel"));
         btnLogIn.addActionListener((ActionEvent e)-> {
-            if(logInCheckHandler.checkLogIn(tfLogIn.getText(),
-                    new String(pfPassword.getPassword()))) {
+            boolean success = false;
+            boolean errored = false;
+            try{
+                success = logInCheckHandler.checkLogIn(tfLogIn.getText(),
+                    new String(pfPassword.getPassword()));}
+            catch (UncheckedIOException ex) {
+                success = false;
+                errored = true;
+            }
+            if(success) {
                 //running = false;
                 toMenuHandler.nextStep();
                 this.setDefaultCloseOperation(
                         WindowConstants.DISPOSE_ON_CLOSE);
                 this.dispatchEvent(
                         new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-            } else {
+            } else if (errored) {
+                lblError.setText(bundle.getString("logInError"));
+            }
+            else {
                 lblError.setText(bundle.getString("logInFailLabel"));
             }
         });

@@ -44,14 +44,14 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
             Project[] availableProjects,
             ProjectActivityRegistrar activityRecorder,
             NextStepHandler canceler) {
-        super("Title"/*bundle.getString("title")*/); //TODO: create resource bundle to handle gui; remove hardcoding
+        super(bundle.getString("title")); //TODO: create resource bundle to handle gui; remove hardcoding
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new MigLayout());
-        JLabel lblProgramPrompt = new JLabel("Program:"/*bundle.getString("projectPrompt")*/);
+        JLabel lblProgramPrompt = new JLabel(bundle.getString("projectPrompt"));
         mainPanel.add(lblProgramPrompt, "wrap");
         String[] projectTableHeaders = {
-            "Project ID"/*bundle.getString("projectID")*/,
-        "Name"/*bundle.getString("projectName")*/};
+            bundle.getString("projectIDText"),
+        bundle.getString("projectNameText")};
         JTable tblProject = new JTable(tablefyProjects(availableProjects), 
                 projectTableHeaders);
         
@@ -76,8 +76,8 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
         //Adds lblActivityPrompt to mainPanel, causing it to take up two
         //columns and cause the next added control to move to the next row.
         mainPanel.add(lblActivityPrompt, "span 2, wrap");
-        JButton btnCancel = new JButton("Cancel"/*bundle.getString(
-            "cancelPrompt")*/);
+        JButton btnCancel = new JButton(bundle.getString(
+            "cancelPrompt"));
         btnCancel.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -95,8 +95,8 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
         //is added, so the action listener can use it.
         JLabel lblResponse = 
                 new JLabel();
-        JButton btnSend = new JButton("Record"/*bundle.getString(
-            "cancelPrompt")*/);
+        JButton btnSend = new JButton(bundle.getString(
+            "recordPrompt"));
         btnSend.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -115,18 +115,23 @@ public class ProjectAcivityGUI extends JFrame implements TimeKeeperUI{
                                     activityRecorder.RecordActivity(project, 
                             typeOfActivity);
                             if(hoursSpent > 0){
-                            lblResponse.setText("You've spent " +
+                            lblResponse.setText(bundle.getString(
+                                    "timeReportOne") +
                                 (new DecimalFormat("###.##")).format(hoursSpent) + 
-                                " hours on this project!");
+                                bundle.getString(
+                                    "timeReportTwo"));
                             } else{
-                                lblResponse.setText("Record saved!");
+                                lblResponse.setText(bundle.getString(
+                                    "saveSuccessText"));
                             }
                         } catch(UncheckedIOException ex) {
-                            lblResponse.setText("Sad face :,(");
+                            lblResponse.setText(bundle.getString(
+                                    "saveFailText"));
                         }
                     } else {
                         //No project was selected
-                        lblResponse.setText("Please actually select a project");
+                        lblResponse.setText(bundle.getString(
+                                    "noProjectText"));
                     }
                 }
             
