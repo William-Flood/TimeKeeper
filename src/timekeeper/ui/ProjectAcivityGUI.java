@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.UncheckedIOException;
 import java.text.DecimalFormat;
-import java.util.Formatter;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -18,9 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
-import static timekeeper.ui.MainMenuGUI.WIDTH;
 import timekeepertwo.data.Project;
 
 /**

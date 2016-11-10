@@ -16,8 +16,8 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 
 /**
- *
- * @author wifoo
+ * A menu with options used to navigate through the application.
+ * @author DragonSheep
  */
 public class MainMenuGUI extends JFrame implements TimeKeeperUI{
     
@@ -26,7 +26,7 @@ public class MainMenuGUI extends JFrame implements TimeKeeperUI{
     static final int HEIGHT_SCALE = 60;
     
     /**
-     * 
+     * Instantiates the window.
      * @param bundle The resource bundle to take text from
      * @param username The name of the current user
      * @param menuOptions A list of options to make avaliable through the menu
@@ -71,6 +71,7 @@ public class MainMenuGUI extends JFrame implements TimeKeeperUI{
     /**
      * Allows other objects to display this window.
      */
+    @Override
     public void display() {
         this.setVisible(true);
     }

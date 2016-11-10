@@ -5,16 +5,13 @@
  */
 package timekeepertwo.dataaccess;
 import timekeepertwo.data.TimeRecord;
-import timekeepertwo.data.Project;
-import timekeepertwo.data.Person;
-import java.io.PrintWriter;
 import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
 
 /**
- *
- * @author k0513525
+ * Saves a time record to a file
+ * @author DragonSheep
  */
 public class RecordSaver {
     static final String OUTPATH = "..//..//sample_data/time_record_data.txt";

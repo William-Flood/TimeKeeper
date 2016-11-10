@@ -5,11 +5,10 @@
  */
 package timekeeper.ui;
 
-import timekeepertwo.data.Person;
 import timekeepertwo.data.Project;
 
 /**
- *
+ * Sends a project and activity to a record keeper.
  * @author DragonSheep
  */
 public interface ProjectActivityRegistrar {

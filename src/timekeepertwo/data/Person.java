@@ -7,8 +7,8 @@ package timekeepertwo.data;
 import flood.util.StringUtil;
 
 /**
- *
- * @author k0513525
+ * A human, or other sufficiently intelligent being
+ * @author DragonSheep
  */
 
 public class Person {
@@ -21,28 +21,58 @@ public class Person {
    */
   String personCategory;
   static String[] personCategoryList = {"EMPLOYEE", "MANAGER"};
-  
+    /**
+     * 
+     * @return The ID associated with the person
+     */
     public String getPersonID() {
         return personID;
     }
-
+    /**
+     * 
+     * @return Person's first name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * 
+     * @return Person's last name
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**'
+     * 
+     * @return Person's password
+     */
     public String getPassword() {
         return password;
     }
-
+    
+    /**
+     * 
+     * @return The type of person
+     */
     public String getPersonCategory() {
         return personCategory;
     }
   
-  public Person(String personID, String firstName, String lastName, String password, String personCategory) {
+    /**
+     * Creates a person object
+     * @param personID The ID associated with the person
+     * @param firstName Person's first name
+     * @param lastName Person's last name
+     * @param password Person's password
+     * @param personCategory  The type of person.
+     */
+  public Person(String personID, 
+          String firstName, 
+          String lastName, 
+          String password, 
+          String personCategory) {
       if(StringUtil.isInteger(personID)) {
           this.personID = personID;
       }

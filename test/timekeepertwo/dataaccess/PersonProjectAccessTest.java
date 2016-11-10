@@ -16,7 +16,7 @@ import timekeepertwo.data.Project;
 
 /**
  *
- * @author k0513525
+ * @author DragonSheep
  */
 public class PersonProjectAccessTest {
     

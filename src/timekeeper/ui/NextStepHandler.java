@@ -7,7 +7,7 @@ package timekeeper.ui;
 
 /**
  * Allows an object to pass functionality into a user interface element
- * @author k0513525
+ * @author DraqonSheep
  */
 public interface NextStepHandler {
     void nextStep();

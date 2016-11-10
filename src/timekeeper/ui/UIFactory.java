@@ -10,7 +10,7 @@ import timekeepertwo.data.Project;
 
 /**
  * A factory class to generate user interface elements
- * @author k0513525
+ * @author DragonSheep
  */
 public class UIFactory {
     /**

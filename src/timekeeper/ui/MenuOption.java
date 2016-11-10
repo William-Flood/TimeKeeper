@@ -6,8 +6,8 @@
 package timekeeper.ui;
 
 /**
- *
- * @author wifoo
+ * An option to place within a menu
+ * @author DragonSheep
  */
 public class MenuOption {
     

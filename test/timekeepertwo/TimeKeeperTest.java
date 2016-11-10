@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author k0513525
+ * @author DragonSheep
  */
 public class TimeKeeperTest {
     

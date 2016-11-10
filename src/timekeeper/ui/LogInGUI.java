@@ -5,13 +5,9 @@
  */
 package timekeeper.ui;
 
-import java.util.ResourceBundle;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.UncheckedIOException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,12 +19,19 @@ import javax.swing.WindowConstants;
 import net.miginfocom.swing.MigLayout;
 
 /**
- *
- * @author k0513525
+ * A screen which prompts users to log into the application
+ * @author DragonSheep
  */
 public class LogInGUI extends JFrame implements TimeKeeperUI {
-    //public boolean running;
     
+    /**
+     * Instantiates the window
+     * @param bundle A resource bundle with text to display
+     * @param logInCheckHandler A function to check a user's login information
+     * @param cancelHandler A function to call should the user
+     * cancel activity
+     * @param toMenuHandler A function to call after a sucessful login
+     */
     public LogInGUI(ResourceBundle bundle, 
             LogInCheckHandler logInCheckHandler,
             NextStepHandler cancelHandler,
@@ -91,6 +94,9 @@ public class LogInGUI extends JFrame implements TimeKeeperUI {
         
     }
     
+    /**
+     * Makes the window visible.
+     */
     public void display() {
         this.setVisible(true);
     }

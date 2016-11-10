@@ -13,101 +13,44 @@ import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import java.util.Optional;
 import timekeeper.ui.TimeKeeperUI;
-
 import timekeeper.ui.UIFactory;
 import timekeeper.ui.UIType;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
 import timekeeper.ui.MenuOption;
-import timekeeper.ui.NextStepHandler;
 import timekeepertwo.dataaccess.RecordRetriever;
 
 /**
  * Records activity on various projects
  * Known issues:
- *   -Program will not handle errors reading the person file
- *   -ProjectActivityGUI text hard-coded - should use resource bundle 
  * @author DragonSheep
  */
 public class TimeKeeper {
 
-    /**
-     * @param args the command line arguments
-     
-  public static void main(String[] args) {
-    if(false == checkArgsLength(args)) {
-        System.err.println("Three arguments only");
-        System.exit(-1);
-    }
-    if(false == checkStartStopArg(args[2])){
-        System.err.println("Third argument S or E Only");
-        System.exit(-1);
-    }
-    Person personFromID = null;
-    try{
-        personFromID = PersonProjectAccess.getPerson(args[1]);
-    } catch(FileNotFoundException ex) {
-        System.err.println("The person save file is missing!");
-        System.exit(-1);
-    } catch(IllegalArgumentException ex) {
-        System.err.println("The person ID provided wasn't found!");
-        System.exit(-1);
-    }
-    Project projectFromID = null;
-    try{
-        projectFromID = PersonProjectAccess.getProject(args[0]);
-    } catch(FileNotFoundException ex) {
-        System.err.println("The project save file is missing!");
-        System.exit(-1);
-    } catch(IllegalArgumentException ex) {
-        System.err.println("The project ID provided wasn't found!");
-        System.exit(-1);
-    }
     
-    TimeRecord recordToAdd = new TimeRecord(projectFromID,personFromID,args[2],
-    LocalDateTime.now());
-    
-    try {
-    RecordSaver.saveTimeRecord(recordToAdd);
-    } catch (IOException ex) {
-        System.err.println("File write failed");
-        System.exit(-1);
-    }
-    
-    System.out.println("Record saved for " + personFromID.getFirstName() +
-            personFromID.getLastName() + " on " + projectFromID.getName() +
-            " at "+ recordToAdd.getDateAndTime().toString());
-    
-      
-  }
-  
-  public static boolean checkArgsLength(String[] args) {
-      return args.length == 3;
-  }
-  
-  public static boolean checkStartStopArg(String arg) {
-      return (arg.equals("S") ||  arg.equals("E"));
-  }
-  */
   static boolean latch;
   static Person user;
-  //TODO: add project signin option to main menu
-  static final MenuOption[] menuOptions = {
+  /**
+   *  Main menu options.
+   */
+  static final MenuOption[] MAIN_MENU_OPTIONS = {
       new MenuOption("recordProjectActivity",()->toProjectActivity()),
       new MenuOption("logOut",()->goToLogin())
   };
-    
+  /**
+   * Code execution begins here. 
+   * @param args Ignored
+   */
   public static void main(String[] args) {
       goToLogin();
-      //user = new Person("52", "dummy", "dummy", "dummy", "dummy");
-      //toProjectActivity();
   }
-  
+  /**
+   *  Shows the login menu.
+   */
   public static void goToLogin() {
     user = null;
       ResourceBundle logInBundle = ResourceBundle.getBundle(
@@ -123,7 +66,7 @@ public class TimeKeeper {
     }
   
   /**
-   * Log into a user into the application
+   * Attempts to log a user into the application.
    * @param username The ID number of the user
    * @param password The password of the user
    * @return Whether or not the login was successful
@@ -142,7 +85,10 @@ public class TimeKeeper {
       }
       return wasPersonFound;
   }
-  
+  /**
+   * Displays menu with a list of options
+   * for navigating through the application.
+   */
   public static void toMainMenu() {
       ResourceBundle mainMenuBundle = ResourceBundle.getBundle(
               "timekeepertwo.MainMenuText",
@@ -150,12 +96,17 @@ public class TimeKeeper {
       TimeKeeperUI mainMenu = UIFactory.makeMainMenuUI(UIType.GUI, 
               mainMenuBundle, 
               user.getFirstName() + " " + user.getLastName(), 
-              menuOptions);
+              MAIN_MENU_OPTIONS);
       
       //Make the menu visible
       mainMenu.display();
   }
-  
+  /**
+   * Opens the project activity menu
+   * allowing the user to sign into and
+   * out of projects, and records a log
+   * of this activity.
+   */
   public static void toProjectActivity() {
       ResourceBundle projectActivityBundle = ResourceBundle.getBundle(
               "timekeepertwo.ProjectActivityText",
@@ -174,7 +125,7 @@ public class TimeKeeper {
       //Creates the UI
       TimeKeeperUI projectActivity = UIFactory.makeProjectActivityUI(UIType.GUI, 
               projectActivityBundle,  
-              filteredList, //TODO: filter projectList to remove inactive projects
+              filteredList, 
               
               //Code to call in order to record project activity
               (project,activityType)->recordActivity(project, 
@@ -189,7 +140,7 @@ public class TimeKeeper {
   }
   
   /**
-   * Records project activity to file
+   * Records project activity to file.
    * @param project The project with activity to record
    * @param activityType Whether work began or ended on the project
    * @return A value to indicate whether the save succeeded
@@ -206,9 +157,6 @@ public class TimeKeeper {
         try {
             Optional<TimeRecord> latestRecord = 
                     RecordRetriever.returnStartActivity(project, user);
-            /*System.out.println(latestRecord.isPresent()?
-                    latestRecord.get().getDateAndTime():"nada"
-            );*/
             RecordSaver.saveTimeRecord(recordToAdd);
             if(latestRecord.isPresent()){
                 return ChronoUnit.HOURS.between(

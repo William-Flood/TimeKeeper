@@ -9,19 +9,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Stream;
 import timekeepertwo.data.Person;
 import timekeepertwo.data.Project;
 import timekeepertwo.data.TimeRecord;
 
 /**
- *
+ * Used to retrieve time records
  * @author DragonSheep
  */
 public class RecordRetriever {
@@ -78,7 +75,7 @@ public class RecordRetriever {
     }
 
     /**
-     * 
+     * Creates a time record from a string array
      * @param generateFrom A string array used to build a time record
      * @return A time record
      * @throws FileNotFoundException 

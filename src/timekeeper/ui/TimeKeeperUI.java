@@ -6,8 +6,8 @@
 package timekeeper.ui;
 
 /**
- * A user interface element of the TimeKeeper app
- * @author k0513525
+ * A user interface element of the TimeKeeper application
+ * @author DragonSheep
  */
 public interface TimeKeeperUI {
     /**

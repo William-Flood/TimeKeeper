@@ -6,9 +6,16 @@
 package timekeeper.ui;
 
 /**
- *
- * @author k0513525
+ * Used to allow a user to log into the application
+ * @author DragonSheep
  */
 public interface LogInCheckHandler {
+    
+    /**
+     * Used to allow a user to log into the application
+     * @param name The user ID
+     * @param password The user's password
+     * @return 
+     */
     boolean checkLogIn(String name, String password);
 }

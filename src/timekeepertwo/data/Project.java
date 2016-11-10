@@ -6,8 +6,8 @@
 package timekeepertwo.data;
 import flood.util.StringUtil;
 /**
- *
- * @author k0513525
+ * A project tracked by the application
+ * @author DragonSheep
  */
 public class Project {
   String projectID;
@@ -15,22 +15,45 @@ public class Project {
   String name;
   String description;
 
+  /**
+   * 
+   * @return The ID associated with the project
+   */
     public String getProjectID() {
         return projectID;
     }
 
+    /**
+     * 
+     * @return An indication of if the project is active
+     */
     public String getActiveFlag() {
         return activeFlag;
     }
 
+    /**
+     * 
+     * @return The name of the project
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * 
+     * @return A description of the project
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Creates a project object
+     * @param projectID The ID associated with the project
+     * @param activeFlag An indication of if the project is active
+     * @param name The name of the project
+     * @param description  A description of the project
+     */
     public Project(String projectID, String activeFlag, String name, String description) {
         if(StringUtil.isInteger(projectID)) {
             this.projectID = projectID;

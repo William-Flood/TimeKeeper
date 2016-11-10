@@ -10,11 +10,10 @@ import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 /**
- *
- * @author k0513525
+ * Accesses the files associated with the person and project records
+ * @author DragonSheep
  */
 public class PersonProjectAccess {
   static final String SEPARATOR = "[|]|"+System.lineSeparator();
@@ -166,9 +165,8 @@ public class PersonProjectAccess {
   }
   
   /**
-   * Retrieves all available projects
-   * @param projectID
-   * @return
+   * 
+   * @return A list of projects from file
    * @throws FileNotFoundException 
    */
   public static Project[] getProjectList() throws FileNotFoundException {
